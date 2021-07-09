@@ -24,18 +24,13 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void update(int id, User user) {
-        User userForUpdating = getById(id);
-        userForUpdating.setName(user.getName());
-        userForUpdating.setLastName(user.getLastName());
-        userForUpdating.setAge(user.getAge());
+    public void update(User user) {
+        entityManager.merge(user);
     }
 
     @Override
     public User getById(int id) {
-        return entityManager.createQuery("from User where id = :id", User.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return entityManager.find(User.class, id);
     }
 
     @Override

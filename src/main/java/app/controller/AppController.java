@@ -2,17 +2,15 @@ package app.controller;
 
 import app.model.User;
 import app.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class appController {
+public class AppController {
     private final UserService userService;
 
-    @Autowired
-    public appController(UserService userService) {
+    public AppController(UserService userService) {
         this.userService = userService;
     }
 
@@ -46,9 +44,8 @@ public class appController {
     }
 
     @PatchMapping("/user/{id}")
-    public String edit(@ModelAttribute("user") User user,
-                         @PathVariable("id") int id) {
-        userService.update(id, user);
+    public String edit(@ModelAttribute("user") User user) {
+        userService.update(user);
         return "redirect:/users";
     }
 
